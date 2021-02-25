@@ -17,10 +17,13 @@ const AllEarnings = (props) => {
         setEarnings(response.data)
       }
     })();
-  },[]);
+  },[props.history]);
 
   const uploadFile = async (employerID, file) => {
     const response = await Api.bulkEarningUpload(employerID, file);
+    if (response.status === 200 || response.status === 201) {
+      setEarnings(response.data);
+    }
     return response;
   }
 
@@ -105,6 +108,7 @@ const AllEarnings = (props) => {
                         <td>
                           
                           <Link
+                            to="#"
                             className="mx-2"
                             role="button"
                             onClick={() => {
